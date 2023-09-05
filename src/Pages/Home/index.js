@@ -30,35 +30,54 @@ export default function Home() {
     })();
   }, []);
 
-  const calculateDistance = (lat1, lon1, lat2, lon2) => {
-    var R = 6371; // Radius of the earth in km
+  const calculardistancia = (lat1, lon1, lat2, lon2) => {
+    var R = 6371; 
     var dLat = (lat2 - lat1) * (Math.PI / 180);
     var dLon = (lon2 - lon1) * (Math.PI / 180);
     var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
             Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) 
             * Math.sin(dLon / 2) * Math.sin(dLon / 2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c; // Distance in km
+    var d = R * c; 
     return d;
   }
 
   const psicologos = [
-    { id: '1', name: 'Dr. João Lucas', gender: 'Masculino',image: 'https://via.placeholder.com/150', location: {latitude: -15.610126247519439, longitude: -56.07270112293936}  },
-    { id: '2', name: 'Dra. Ana Alice', gender: 'Feminino',image: 'https://via.placeholder.com/150', location: {latitude: -15.610126247519439, longitude: -56.07270112293936} },
-    { id: '3', name: 'Dr. Gabriel Antonio', gender: 'Masculino',image: 'https://via.placeholder.com/150', location: {latitude: -15.610126247519439, longitude: -56.07270112293936} },
-    { id: '4', name: 'Dra. Carla Ferreira', gender: 'Feminino',image: 'https://via.placeholder.com/150', location: {latitude: -15.610126247519439, longitude: -56.07270112293936} },
-    { id: '5', name: 'Dr. Carlos Andrade', gender: 'Masculino',image: 'https://via.placeholder.com/150', location: {latitude: -15.610126247519439, longitude: -56.07270112293936} },
-    { id: '6', name: 'Dr. Wellington Silva', gender: 'Masculino',image: 'https://via.placeholder.com/150', location: {latitude: -15.610126247519439, longitude: -56.07270112293936} },
-    { id: '7', name: 'Dr. Lucas Matos', gender: 'Masculino', image: 'https://via.placeholder.com/150', location: {latitude: -15.610126247519439, longitude: -56.07270112293936} },
-    { id: '8', name: 'Dr. Matias Guedes', gender: 'Masculino',image: 'https://via.placeholder.com/150' , location: {latitude: -15.610126247519439, longitude: -56.07270112293936} },
+    { id: '1', name: 'Dr. João Lucas', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 3, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
+    { id: '2', name: 'Dra. Ana Alice', gender: 'Feminino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 5, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
+    { id: '3', name: 'Dr. Gabriel Antonio', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 2, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
+    { id: '4', name: 'Dra. Carla Ferreira', gender: 'Feminino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 1, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
+    { id: '5', name: 'Dr. Carlos Andrade', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 2, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
+    { id: '6', name: 'Dr. Wellington Silva', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 4, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
+    { id: '7', name: 'Dr. Lucas Matos', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg',   rating: 5, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
+    { id: '8', name: 'Dr. Matias Guedes', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 4, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
   ];
+
+  function RenderStars({ rating }) {
+    const totalStars = 5; 
+
+    return (
+        <View style={{ flexDirection: 'row' }}>
+            {[...Array(totalStars)].map((_, index) => (
+                <Ionicons 
+                    key={index}
+                    name={index < rating ? 'star' : 'star-outline'} 
+                    size={15} 
+                    color="gold" 
+                />
+            ))}
+        </View>
+    );
+}
 
   const renderItem = ({ item }) => {
     let distance = null;
   
   if (userLocation && userLocation.latitude && userLocation.longitude && item.location) {
-    distance = calculateDistance(userLocation.latitude, userLocation.longitude, item.location.latitude, item.location.longitude).toFixed(2);
+    distance = calculardistancia(userLocation.latitude, userLocation.longitude, item.location.latitude, item.location.longitude).toFixed(2);
   }
+
+
     return (
       <View style={styles.card}>
         <View style={styles.cardRow}>
@@ -66,6 +85,7 @@ export default function Home() {
           <View style={styles.cardInfo}>
             <Text style={styles.cardText}>Nome: {item.name}</Text>
             <Text style={styles.cardText}>Gênero: {item.gender}</Text>
+            <RenderStars rating={item.rating} />
             <Text style={styles.cardText}>{distance ? `Distância: ${distance} km` : "Calculando distância..."}</Text>
             <TouchableOpacity style={styles.button} onPress={() => openInMaps(item.location.latitude, item.location.longitude)}>
               <Text style={styles.buttonText}>Ver no mapa</Text>
@@ -122,7 +142,7 @@ export default function Home() {
       })}
       tabBarOptions={{
         activeTintColor: '#383838',
-        inactiveTintColor: '#383838',
+        inactiveTintColor: '#383838'
       }}>
         <Tab.Screen name="Home" component={ListaPsicologos} options={{ headerShown: false }} />
         <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
@@ -160,7 +180,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 2,
-    elevation: 3,  // Elevation é usado para shadow no Android
+    elevation: 3,  
   },
   cardText: {
     fontSize: 16,
@@ -173,7 +193,7 @@ const styles = StyleSheet.create({
   cardImage: {
     width: 60,
     height: 60,
-    borderRadius: 30,  // Metade da largura e altura para torná-la circular
+    borderRadius: 30,  
     marginRight: 10,
   },
   cardInfo: {
