@@ -8,33 +8,23 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function SignIn() {
   const navigation = useNavigation();
-
-  
-
   const [email, setEmail] = useState('');  
   const [password, setPassword] = useState('');  
 
   const handleLogin = async () => {
     try {
-      const storedData = await AsyncStorage.getItem(email);
-      const userInfo = storedData ? JSON.parse(storedData) : null;
-      
-      if (userInfo && userInfo.password === password) {
-        await AsyncStorage.setItem('userLoggedIn', 'true');
-        Alert.alert("Sucesso!", "Logado com sucesso.");
-        navigation.navigate('Home');  
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'Home' }],
-        });
-      } else {
-        Alert.alert("Erro", "E-mail ou senha inválidos.");
-      }
+        const storedEmail = await AsyncStorage.getItem('@asyncStorage:email');
+        const storedPassword = await AsyncStorage.getItem('@asyncStorage:password' );
+        if (email === storedEmail && password === storedPassword) {
+            navigation.navigate('Home'); 
+        } else {
+            Alert.alert("Erro", "E-mail ou senha inválidos.");
+        }
     } catch (error) {
-      Alert.alert("Erro", "Ocorreu um erro ao tentar fazer login.");
+        Alert.alert("Erro", "Ocorreu um erro ao tentar fazer login.");
     }
-    
-  };
+};
+
 
 
  return (

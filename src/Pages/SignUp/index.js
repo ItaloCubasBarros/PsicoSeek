@@ -18,10 +18,16 @@ export default function SignUp() {
           return;
       }
       try {
-          const userInfo = JSON.stringify({ name, email, password });
-          await AsyncStorage.setItem('user_info_key', userInfo);
-          navigation.navigate('InfoUser');
-          Alert.alert("Adicione algumas informações!");
+          await AsyncStorage.setItem('@asyncStorage:name', name);
+          await AsyncStorage.setItem('@asyncStorage:email', email);
+          await AsyncStorage.setItem('@asyncStorage:password', password);
+          Alert.alert(
+            "Informação", 
+            "Adicione algumas informações!", 
+            [
+                {text: 'OK', onPress: () => navigation.navigate('InfoUser')}
+            ]
+        );
       } catch (error) {
           Alert.alert("Erro ao criar a conta.");
       }

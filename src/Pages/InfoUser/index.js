@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Image } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import AsyncStorage from '@react-native-async-storage/async-storage';   
+import AsyncStorage from '@react-native-async-storage/async-storage';  
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default function InfoUser() {
-    const route = useRoute();
-    const { userName, userEmail } = route.params;
+    const route = useRoute()
     const navigation = useNavigation();
     const [birthDate, setBirthDate] = useState('');
     const [choice, setChoice] = useState(null);
     const [gender, setGender] = useState('')
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [repeatPassword, setRepeatPassword] = useState('')
+    
 
     const choiceButtonStyle = (selection, option) => {
         return selection === option ? styles.choiceButtonSelected : styles.choiceButton;
@@ -33,6 +37,7 @@ export default function InfoUser() {
 
         return age;
     };
+    
 
     const handleBirthDateChange = (text) => {
         let newText = text.replace(/[^0-9]/g, ''); 
@@ -59,21 +64,21 @@ export default function InfoUser() {
         }
 
         const age = calcularIdade(birthDate);
-
         try {
-            const additionalInfo = JSON.stringify({ birthDate, age, choice });
-            await AsyncStorage.setItem('user_info_key', additionalInfo);
-            Alert.alert("Informações adicionadas com sucesso!");
-            navigation.navigate('Home');  
+            await AsyncStorage.setItem('@asyncStorage:birthDate', birthDate);
+            await AsyncStorage.setItem('@asyncStorage:gender', gender);
+            await AsyncStorage.setItem('@asyncStorage:choice', choice);
+    
+            navigation.navigate('SignIn'); 
         } catch (error) {
             Alert.alert("Erro ao adicionar informações.");
-        }
+        }   
     };
 
     return (
         <View style={styles.container}>
             <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
-                <Text style={styles.message}>Adicione algumas informações. </Text>
+                <Text style={styles.message}> {name} Adicione algumas informações. </Text>
                 <Image 
                     source={require('../../assets/logo.png')}
                     style={styles.logo}

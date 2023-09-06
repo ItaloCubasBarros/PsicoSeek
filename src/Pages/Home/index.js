@@ -7,7 +7,7 @@ import Profile from '../Profile';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
-
+import Psicologos_pages from '../Psicologos/Psicologos.pages';
 
 const Tab = createBottomTabNavigator();
 
@@ -43,14 +43,14 @@ export default function Home() {
   }
 
   const psicologos = [
-    { id: '1', name: 'Dr. João Lucas', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 3, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
-    { id: '2', name: 'Dra. Ana Alice', gender: 'Feminino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 5, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
-    { id: '3', name: 'Dr. Gabriel Antonio', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 2, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
-    { id: '4', name: 'Dra. Carla Ferreira', gender: 'Feminino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 1, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
-    { id: '5', name: 'Dr. Carlos Andrade', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 2, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
-    { id: '6', name: 'Dr. Wellington Silva', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 4, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
-    { id: '7', name: 'Dr. Lucas Matos', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg',   rating: 5, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
-    { id: '8', name: 'Dr. Matias Guedes', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 4, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
+    { id: '1', name: 'Dr. João Lucas', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 5, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
+    { id: '2', name: 'Dra. Ana Alice', gender: 'Feminino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 4, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
+    { id: '3', name: 'Dr. Gabriel Antonio', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 1, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
+    { id: '4', name: 'Dra. Carla Ferreira', gender: 'Feminino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 3, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
+    { id: '5', name: 'Dr. Carlos Andrade', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 4, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
+    { id: '6', name: 'Dr. Wellington Silva', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 5, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
+    { id: '7', name: 'Dr. Lucas Matos', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg',   rating: 2, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
+    { id: '8', name: 'Dr. Matias Guedes', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 1 , location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
   ];
 
   function RenderStars({ rating }) {
@@ -79,6 +79,7 @@ export default function Home() {
 
 
     return (
+      <TouchableOpacity onPress={ () => navigation.navigate('Psicologos_pages')}>
       <View style={styles.card}>
         <View style={styles.cardRow}>
           <Image source={{ uri: item.image }} style={styles.cardImage} />
@@ -93,6 +94,7 @@ export default function Home() {
           </View>
         </View>
       </View>
+      </TouchableOpacity>
     );
   };
 

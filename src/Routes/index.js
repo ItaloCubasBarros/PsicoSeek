@@ -7,45 +7,22 @@ import SignUp from '../Pages/SignUp';
 import Home from '../Pages/Home';
 import InfoUser from '../Pages/InfoUser'
 import Profile from '../Pages/Profile';
+import Psicologos_cadastro from '../Pages/Psicologos/Psicologos.cadastro';
+import Psicologos_pages from '../Pages/Psicologos/Psicologos.pages';
 
 const Stack = createNativeStackNavigator();
 
 
 export default function Router() {
-    const [hasInfo, setHasInfo] = useState(null);
+    
 
-    useEffect(() => {
-        async function checkUserInfo() {
-            try {
-                const userInfo = await AsyncStorage.getItem('user_info_key');
-                if (userInfo) {
-                    const data = JSON.parse(userInfo);
-                    if (data.birthDate && data.choice) {
-                        setHasInfo(true);
-                    } else {
-                        setHasInfo(false);
-                    }
-                } else {
-                    setHasInfo(false);
-                }
-            } catch (error) {
-                console.error("Failed to load user info", error);
-                setHasInfo(false);
-            }
-        }
-
-        checkUserInfo();
-    }, []);
-
-    if (hasInfo === null) {
-        return null; 
-    }
+   
 
     return (
         <Stack.Navigator>
-            {hasInfo ? (
-                <>
-                    <Stack.Screen 
+           
+
+                    <Stack.Screen
                         name="Home"
                         component={Home}
                         options={{headerShown: false}}
@@ -79,19 +56,19 @@ export default function Router() {
                         component={Profile}
                         options={{ headerShown: false }}
                     />
-                   
-                </>
-            ) : (
-                <>
-                        
-                        <Stack.Screen
-                        name="InfoUser"
-                        component={InfoUser}
+                    <Stack.Screen
+                        name="Psicologos_cadastro"
+                        component={Psicologos_cadastro}
                         options={{ headerShown: false }}
                     />
-                        
-                </>
-            )}
+                    <Stack.Screen
+                        name="Psicologos_pages"
+                        component={Psicologos_pages}
+                        options={{ headerShown: false }}
+                    />
+
+                
+
         </Stack.Navigator>
     );
 }
