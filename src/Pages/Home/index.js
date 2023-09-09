@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, Linking, TouchableOpacity } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import * as Animatable from 'react-native-animatable';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import Profile from '../Profile';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons,FontAwesome } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import Psicologos_pages from '../Psicologos/Psicologos.pages';
 
@@ -15,7 +16,10 @@ export default function Home() {
 
   const navigation = useNavigation();
   const [userLocation, setUserLocation] = useState(null);
-
+  const [selectedGender, setSelectedGender] = useState('');
+  const [selectedRating, setSelectedRating] = useState('')
+  const [selectedPreco, setSelectedPreco] = useState('')
+ 
   
   useEffect(() => {
     (async () => {
@@ -43,15 +47,41 @@ export default function Home() {
   }
 
   const psicologos = [
-    { id: '1', name: 'Dr. João Lucas', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 5, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
-    { id: '2', name: 'Dra. Ana Alice', gender: 'Feminino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 4, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
-    { id: '3', name: 'Dr. Gabriel Antonio', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 1, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
-    { id: '4', name: 'Dra. Carla Ferreira', gender: 'Feminino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 3, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
-    { id: '5', name: 'Dr. Carlos Andrade', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 4, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
-    { id: '6', name: 'Dr. Wellington Silva', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 5, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
-    { id: '7', name: 'Dr. Lucas Matos', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg',   rating: 2, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
-    { id: '8', name: 'Dr. Matias Guedes', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 1 , location: { latitude: -15.610126247519439, longitude: -56.07270112293936 } },
-  ];
+    { id: '1', name: 'Dr. João Lucas', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 5, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 }, preco: 5, atendimentos:350 },
+    { id: '2', name: 'Dra. Ana Alice', gender: 'Feminino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 4, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 }, preco: 3, atendimentos: 1000 },
+    { id: '3', name: 'Dr. Gabriel Antonio', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 1, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 }, preco: 3, atendimentos: 800 },
+    { id: '4', name: 'Dra. Carla Ferreira', gender: 'Feminino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 3, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 }, preco: 3, atendimentos: 100 },
+    { id: '5', name: 'Dr. Carlos Andrade', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 4, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 }, preco: 3, atendimentos: 30 },
+    { id: '6', name: 'Dr. Wellington Silva', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 5, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 }, preco: 2 , atendimentos: 90},
+    { id: '7', name: 'Dr. Lucas Matos', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg',   rating: 2, location: { latitude: -15.610126247519439, longitude: -56.07270112293936 }, preco: 3, atendimentos: 80 },
+    { id: '8', name: 'Dr. Matias Guedes', gender: 'Masculino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 1 , location: { latitude: -15.610126247519439, longitude: -56.07270112293936 }, preco: 5, atendimentos: 1300 },
+    { id: '9', name: 'Dr. Luciana Amaral', gender: 'Feminino', image: 'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg', rating: 5 , location: { latitude: -15.610126247519439, longitude: -56.07270112293936 }, preco: 5, atendimentos: 15 },
+  ]
+  const filteredPsicologos = psicologos
+  .filter(p => {
+    if (selectedGender) {
+      return p.gender === selectedGender;
+    }
+    return true;
+  })
+  
+  filteredPsicologos.sort((a, b) => {
+    if (selectedRating === 'Maior' && selectedPreco === 'MaiorPreco') {
+      if (a.rating === b.rating) {
+        return b.preco - a.preco;
+      }
+      return b.rating - a.rating;
+    } else if (selectedRating === 'Menor') {
+      return a.rating - b.rating;
+    } else if (selectedRating === 'Maior') {
+      return b.rating - a.rating;
+    } else if (selectedPreco === 'MenorPreco') {
+      return a.preco - b.preco;
+    } else if (selectedPreco === 'MaiorPreco') {
+      return b.preco - a.preco;
+    }
+    return 0;
+  });
 
   function RenderStars({ rating }) {
     const totalStars = 5; 
@@ -70,6 +100,18 @@ export default function Home() {
     );
 }
 
+function RenderMoney({ preco }) {
+  const totalMoney = 5; 
+
+  return (
+      <View style={{ flexDirection: 'row' }}>
+          {[...Array(totalMoney)].map((_, index) => (
+              <Ionicons key={index} name={index < preco ? 'cash' : 'cash-outline'} size={15} color="green" />
+          ))}
+      </View>
+  );
+}
+
   const renderItem = ({ item }) => {
     let distance = null;
   
@@ -79,7 +121,7 @@ export default function Home() {
 
 
     return (
-      <TouchableOpacity onPress={ () => navigation.navigate('Psicologos_pages')}>
+      <TouchableOpacity onPress={ () => navigation.navigate('Psicologos_pages', { psicologo: item })}>
       <View style={styles.card}>
         <View style={styles.cardRow}>
           <Image source={{ uri: item.image }} style={styles.cardImage} />
@@ -87,6 +129,7 @@ export default function Home() {
             <Text style={styles.cardText}>Nome: {item.name}</Text>
             <Text style={styles.cardText}>Gênero: {item.gender}</Text>
             <RenderStars rating={item.rating} />
+            <RenderMoney preco={item.preco} />
             <Text style={styles.cardText}>{distance ? `Distância: ${distance} km` : "Calculando distância..."}</Text>
             <TouchableOpacity style={styles.button} onPress={() => openInMaps(item.location.latitude, item.location.longitude)}>
               <Text style={styles.buttonText}>Ver no mapa</Text>
@@ -111,17 +154,63 @@ export default function Home() {
     });
   };
 
+ 
+
   function ListaPsicologos() {
     return (
         <View style={{ flex: 1 }}>
             <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
-                <Text style={styles.message}>Escolha seu Psicologo(a) </Text>
+                <Text style={styles.message}>Escolha seu Psicólogo(a) </Text>
             </Animatable.View>
+            <View style={styles.containerPickers}>
+            <Picker 
+            style={styles.pickerStyle}
+            selectedValue={selectedGender}
+            onValueChange={
+              (itemValor, itemIndex) => 
+              setSelectedGender(itemValor)
+            }
+            >
+              <Picker.Item label='👨‍⚕️'  value="" />
+              <Picker.Item label='Masculino:' value="Masculino" style={styles.pickerText}/>
+              <Picker.Item label='Feminino:' value="Feminino" style={styles.pickerText}/>
+            </Picker>
+            <Picker 
+            style={styles.pickerStyle}
+            selectedValue={selectedRating}
+            onValueChange={
+              (itemValor, itemIndex) => 
+              setSelectedRating(itemValor)
+            }
+            >
+              <Picker.Item label='⭐'  value="" />
+              <Picker.Item label='Menor avalição' value="Menor"  style={styles.pickerText} />
+              <Picker.Item label='Maior avaliação' value="Maior" style={styles.pickerText}/>
+            </Picker>
+
+            <Picker 
+            style={styles.pickerStyle}
+            selectedValue={selectedPreco}
+            onValueChange={
+              (itemValor, itemIndex) => 
+              setSelectedPreco(itemValor)
+            }
+            >
+              <Picker.Item label='💲'  value="" />
+              <Picker.Item label='Menor preço' value="MenorPreco" style={styles.pickerText}/>
+              <Picker.Item label='Maior preço' value="MaiorPreco" style={styles.pickerText}/>
+            </Picker>
+            </View>
             <FlatList
-                data={psicologos}
+                data={filteredPsicologos}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
             />
+        {filteredPsicologos.length === 0 && (
+          <Text style={{ textAlign: 'center', marginTop: 20 }}>
+            Nenhum psicólogo encontrado com o gênero selecionado.
+          </Text>
+        )}
         </View>
     );
   }
@@ -129,23 +218,28 @@ export default function Home() {
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-          if (route.name === 'Home') {
-            iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'Profile') {
-            iconName = focused ? 'person' : 'person-outline';
-          } else if (route.name === 'Logout') {
-            iconName = focused ? 'exit' : 'exit-outline';
-          }
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-      })}
-      tabBarOptions={{
-        activeTintColor: '#383838',
-        inactiveTintColor: '#383838'
-      }}>
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            if (route.name === 'Home') {
+              iconName = focused ? 'home' : 'home-outline';
+            } else if (route.name === 'Profile') {
+              iconName = focused ? 'person' : 'person-outline';
+            } else if (route.name === 'Logout') {
+              iconName = focused ? 'exit' : 'exit-outline';
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: "#383838",
+          tabBarInactiveTintColor: "#383838",
+          tabBarStyle: [
+            {
+              display: "flex"
+            },
+            null
+          ]
+        })}
+>
         <Tab.Screen name="Home" component={ListaPsicologos} options={{ headerShown: false }} />
         <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
         <Tab.Screen 
@@ -216,8 +310,31 @@ const styles = StyleSheet.create({
   },
   button:{
     width: '10px',
-  }
-  
+  },
+  pickerComponent:{
+
+    width: 350,
+  },
+  textSelecionado:{
+    fontSize: 12,
+    padding: 10,
+    fontWeight: 'bold'
+  },
+  containerPickers: {
+    backgroundColor: '#38a69d',
+    flexDirection: 'row',  
+    justifyContent: 'space-between', 
+    padding: 10,  
+  },
+  pickerStyle: {
+    flex: 1,  
+    margin: 5,  
+    fontSize: 12,
+    padding: 10,
+    fontWeight: 'bold',
+    borderWidth: 1,  
+    borderColor: '#ccc', 
+  },
 
 });
 const EmptyScreen = () => null;
