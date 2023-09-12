@@ -1,5 +1,5 @@
 import React,{ useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Image } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -30,6 +30,11 @@ export default function SignIn() {
  return (
    <View style={styles.container}>
     <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
+    <Image 
+      source={require('../../assets/psicoguia.jpg')}
+      style={styles.logo}
+      resizeMode='contain'
+      />
       <Text style={styles.message}>Bem-Vindo(a) </Text>
     </Animatable.View>
 
@@ -58,6 +63,9 @@ export default function SignIn() {
     <TouchableOpacity style={styles.buttonRegister} onPress={ () => navigation.navigate('SignUp')}>
       <Text style={styles.registerText} >Não possui uma conta? Cadastre-se</Text>
     </TouchableOpacity>
+    <TouchableOpacity style={styles.buttonRegister} onPress={ () => navigation.navigate('Welcome')}>
+      <Text style={styles.registerText} >Tela Bem-Vindo</Text>
+    </TouchableOpacity>
 
     </Animatable.View>
 
@@ -68,17 +76,29 @@ export default function SignIn() {
 const styles =  StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor: '#38a69d',
+    backgroundColor: '#1c1c1c',
   },
   containerHeader:{
     marginTop: '14%',
     marginBottom: '8%',
     paddingStart: '5%',
   },
+  logo: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    marginBottom: 15,
+  },
+  containerHeader: {
+    marginTop: '10%',
+    marginBottom: '8%',
+    alignItems: 'center', 
+  },
   message:{
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#FFF'
+    color: '#ea900f',
+    marginLeft: '6%'
   },
   containerForm:{
     backgroundColor: '#FFF',
@@ -99,7 +119,7 @@ const styles =  StyleSheet.create({
     fontSize: 16,
   },
   button:{
-    backgroundColor: '#38a69d',
+    backgroundColor: '#1c1c1c',
     width: '100%',
     borderRadius: 4,
     paddingVertical: 8,

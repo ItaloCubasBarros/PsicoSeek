@@ -100,17 +100,7 @@ export default function Home() {
     );
 }
 
-function RenderMoney({ preco }) {
-  const totalMoney = 5; 
 
-  return (
-      <View style={{ flexDirection: 'row' }}>
-          {[...Array(totalMoney)].map((_, index) => (
-              <Ionicons key={index} name={index < preco ? 'cash' : 'cash-outline'} size={15} color="green" />
-          ))}
-      </View>
-  );
-}
 
   const renderItem = ({ item }) => {
     let distance = null;
@@ -129,7 +119,6 @@ function RenderMoney({ preco }) {
             <Text style={styles.cardText}>Nome: {item.name}</Text>
             <Text style={styles.cardText}>Gênero: {item.gender}</Text>
             <RenderStars rating={item.rating} />
-            <RenderMoney preco={item.preco} />
             <Text style={styles.cardText}>{distance ? `Distância: ${distance} km` : "Calculando distância..."}</Text>
             <TouchableOpacity style={styles.button} onPress={() => openInMaps(item.location.latitude, item.location.longitude)}>
               <Text style={styles.buttonText}>Ver no mapa</Text>
@@ -171,8 +160,8 @@ function RenderMoney({ preco }) {
               setSelectedGender(itemValor)
             }
             >
-              <Picker.Item label='👨‍⚕️'  value="" />
-              <Picker.Item label='Masculino:' value="Masculino" style={styles.pickerText}/>
+              <Picker.Item label='Genêro' color='#fff'  value="" />
+              <Picker.Item label='👨‍⚕️' value="Masculino" style={styles.pickerText}/>
               <Picker.Item label='Feminino:' value="Feminino" style={styles.pickerText}/>
             </Picker>
             <Picker 
@@ -183,22 +172,9 @@ function RenderMoney({ preco }) {
               setSelectedRating(itemValor)
             }
             >
-              <Picker.Item label='⭐'  value="" />
-              <Picker.Item label='Menor avalição' value="Menor"  style={styles.pickerText} />
-              <Picker.Item label='Maior avaliação' value="Maior" style={styles.pickerText}/>
-            </Picker>
-
-            <Picker 
-            style={styles.pickerStyle}
-            selectedValue={selectedPreco}
-            onValueChange={
-              (itemValor, itemIndex) => 
-              setSelectedPreco(itemValor)
-            }
-            >
-              <Picker.Item label='💲'  value="" />
-              <Picker.Item label='Menor preço' value="MenorPreco" style={styles.pickerText}/>
-              <Picker.Item label='Maior preço' value="MaiorPreco" style={styles.pickerText}/>
+              <Picker.Item label='Avaliação' color='#fff' value="" />
+              <Picker.Item label='⭐⬇' value="Menor"  style={styles.pickerText} />
+              <Picker.Item label='⭐⬆' value="Maior" style={styles.pickerText}/>
             </Picker>
             </View>
             <FlatList
@@ -296,7 +272,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   containerHeader:{
-    backgroundColor: '#38a69D',
+    backgroundColor: '#1c1c1c',
     paddingStart: '5%',
     padding: 20,
     justifyContent: 'center',
@@ -321,7 +297,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   containerPickers: {
-    backgroundColor: '#38a69d',
+    backgroundColor: '#1c1c1c',
     flexDirection: 'row',  
     justifyContent: 'space-between', 
     padding: 10,  

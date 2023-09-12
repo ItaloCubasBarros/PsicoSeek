@@ -8,105 +8,104 @@ import { useNavigation } from '@react-navigation/native';
 export default function Welcome() {
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      const isLoggedIn = await AsyncStorage.getItem('userLoggedIn');
-      if (isLoggedIn) {
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'Home' }],
-        });
-      } else {
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'SignIn' }],
-        });
-      }
-    };
 
-    checkLoginStatus();
-  }, []);
+  return (
+    <View style={styles.container}>
 
- return (
-   <View style={styles.container}>
+      <View style={styles.containerLogo}>
+        <View style={styles.containerLogo}>
+          <View style={styles.logoContainer}>
+            <Animatable.Image
+              animation={"flipInY"}
+              source={require('../../assets/psicoguia.jpg')}
+              style={styles.logo}
+              resizeMode='contain'
+            />
+            <Text style={[styles.titleP, styles.shadowText]}>
+              <Text style={styles.psico}>Psico</Text>
+              <Text style={styles.guia}>Guia</Text>
+            </Text>
+          </View>
+        </View>
+      </View>
+      <Animatable.View delay={600} animation="fadeInUp" style={styles.containerForm}>
+        <Text style={styles.slogan}>Sua Jornada para uma Mente Saudável</Text>
+        <Text style={styles.text}> Faça login para começar</Text>
 
-<View style={styles.containerLogo}>
-<View style={styles.containerLogo}>
-    <View style={styles.logoContainer}>
-        <Animatable.Image 
-            animation={"flipInY"}
-            source={require('../../assets/logo.png')}
-            style={styles.logo}
-            resizeMode='contain'
-        />
-      <Text style={styles.title}>PsicoGuia</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('SignIn')}
+        >
+          <Text style={styles.buttonText}>Acessar</Text>
+        </TouchableOpacity>
+
+      </Animatable.View>
+
+
     </View>
-</View>
-</View> 
-    <Animatable.View delay={600} animation="fadeInUp" style={styles.containerForm}>
-    <Text style={styles.slogan}>Sua Jornada para uma Mente Saudável</Text>
-    <Text style={styles.text}> Faça login para começar</Text>
-
-    <TouchableOpacity 
-    style={styles.button}
-    onPress={ () => navigation.navigate('SignIn')}
-    >
-      <Text style={styles.buttonText}>Acessar</Text>
-    </TouchableOpacity>
-
-    </Animatable.View>
-
-
-   </View>
   );
 }
 
 const styles = StyleSheet.create({
   logoContainer: {
-    width: 251,          
-        height: 251,
-        borderRadius: 125.5,
-        overflow: 'hidden',  
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#38a69d',  
-    
-},
-  logo: {
-    width: 251,    
-    height: (251/378) * 251, 
-},
-  container:{
-    flex:1,
-    backgroundColor: '#38a69d'
-  },
-  containerLogo:{
-    flex:2,
-    backgroundColor: '#38a69d',
+    width: 251,
+    height: 251,
+    borderRadius: 125.5,
+    overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-    
+    backgroundColor: '#1c1c1c',
+
+  },
+  logo: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    marginBottom: 15,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '##1c1c1c'
+  },
+  containerLogo: {
+    flex: 2,
+    backgroundColor: '#1c1c1c',
+    justifyContent: 'center',
+    alignItems: 'center',
+
   },
   containerForm: {
-    flex:1,
+    flex: 1,
     backgroundColor: '#FFF',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    paddingStart:'5%',
+    paddingStart: '5%',
     paddingEnd: '5%'
   },
-  slogan:{
-    fontSize:24,
+  slogan: {
+    fontSize: 24,
     fontWeight: 'bold',
     marginTop: 28,
     marginBottom: 12,
   },
-  text:{
-    color:'#a1a1a1'
+  titleP: {
+    fontSize: 28,
+    fontWeight: 'bold',
   },
-  button:{
+  psico: {
+    color: '#ea900f', 
+  },
+  guia: {
+    color: '#258e73', 
+  },
+  shadowText: {
+    textShadowColor: 'rgba(0, 0, 0, 0.75)', 
+    textShadowOffset: { width: -1, height: 1 }, 
+    textShadowRadius: 10, 
+  },
+  button: {
     position: 'absolute',
-    backgroundColor: '#38a69d',
+    backgroundColor: '#1c1c1c',
     borderRadius: 50,
     paddingVertical: 8,
     width: '60%',
@@ -115,12 +114,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  buttonText:{
+  buttonText: {
     fontSize: 18,
     color: "#FFF",
     fontWeight: 'bold'
   },
-  title:{
+  title: {
     fontSize: 25,
     color: '#FFF',
     fontWeight: 'bold',

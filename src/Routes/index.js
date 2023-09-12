@@ -21,16 +21,16 @@ export default function Router() {
     return (
         <Stack.Navigator>
            
+            <Stack.Screen
+                name="Welcome"
+                component={Welcome}
+                options={{ headerShown: false }}
+            />
 
                     <Stack.Screen
                         name="Home"
                         component={Home}
                         options={{headerShown: false}}
-                    />
-                    <Stack.Screen
-                        name="Welcome"
-                        component={Welcome}
-                        options={{ headerShown: false }}
                     />
 
                     <Stack.Screen
@@ -57,13 +57,13 @@ export default function Router() {
                         options={{ headerShown: false }}
                     />
                     <Stack.Screen
-                        name="Psicologos_cadastro"
-                        component={Psicologos_cadastro}
+                        name="Psicologos_pages"
+                        component={Psicologos_pages}
                         options={{ headerShown: false }}
                     />
                     <Stack.Screen
-                        name="Psicologos_pages"
-                        component={Psicologos_pages}
+                        name="Psicologos_cadastro"
+                        component={Psicologos_cadastro}
                         options={{ headerShown: false }}
                     />
 

@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     },
     containerHeader:{
       flexDirection: 'row',  
-      backgroundColor: '#38a69D',
+      backgroundColor: '#1c1c1c',
       paddingStart: '5%',
       padding: 20,
       alignItems: 'center'  
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     buttonCurriculo:{
-        backgroundColor: '#38a69d',
+        backgroundColor: '#1c1c1c',
         width: '70%',
         borderRadius: 4,
         paddingVertical: 5,
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     buttonMapa:{
-        backgroundColor: '#38a69d',
+        backgroundColor: '#1c1c1c',
         width: '70%',
         borderRadius: 4,
         paddingVertical: 5,

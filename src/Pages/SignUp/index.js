@@ -37,12 +37,12 @@ export default function SignUp() {
  return (
    <View style={styles.container}>
     <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
-      <Text style={styles.message}>Bem-Vindo(a) </Text>
       <Image 
-      source={require('../../assets/logo.png')}
+      source={require('../../assets/psicoguia.jpg')}
       style={styles.logo}
       resizeMode='contain'
       />
+      <Text style={styles.message}>Bem-Vindo(a) </Text>
     </Animatable.View>
 
     <Animatable.View animation="fadeInUp" style={styles.containerForm}>
@@ -97,24 +97,23 @@ export default function SignUp() {
 const styles =  StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor: '#38a69d',
+    backgroundColor: '#1c1c1c',
   },
-  logo:{
-    width: 45,    
-    height: 45,
-    marginLeft: '85%',
-    marginBottom: '10%',
-    position: 'absolute'
+  logo: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    marginBottom: 15,
   },
-  containerHeader:{
-    marginTop: '14%',
+  containerHeader: {
+    marginTop: '10%',
     marginBottom: '8%',
-    paddingStart: '5%',
+    alignItems: 'center', 
   },
   message:{
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#FFF'
+    color: '#ea900f'
   },
   containerForm:{
     backgroundColor: '#FFF',
@@ -136,7 +135,7 @@ const styles =  StyleSheet.create({
     fontSize: 16,
   },
   button:{
-    backgroundColor: '#38a69d',
+    backgroundColor: '#1c1c1c',
     width: '100%',
     borderRadius: 4,
     paddingVertical: 8,

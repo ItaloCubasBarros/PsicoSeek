@@ -62,14 +62,18 @@ export default function InfoUser() {
             Alert.alert("Por favor, insira sua data de nascimento.");
             return;
         }
-
-        const age = calcularIdade(birthDate);
+    
         try {
             await AsyncStorage.setItem('@asyncStorage:birthDate', birthDate);
             await AsyncStorage.setItem('@asyncStorage:gender', gender);
             await AsyncStorage.setItem('@asyncStorage:choice', choice);
     
-            navigation.navigate('SignIn'); 
+            if(choice === 'Psicólogo') {
+                navigation.navigate('Psicologos_cadastro');
+            } else {
+                navigation.navigate('SignIn'); 
+            }
+            
         } catch (error) {
             Alert.alert("Erro ao adicionar informações.");
         }   
@@ -78,12 +82,12 @@ export default function InfoUser() {
     return (
         <View style={styles.container}>
             <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
-                <Text style={styles.message}> {name} Adicione algumas informações. </Text>
                 <Image 
-                    source={require('../../assets/logo.png')}
+                    source={require('../../assets/psicoguia.jpg')}
                     style={styles.logo}
                     resizeMode='contain'
                 />
+                <Text style={styles.message}>Adicione algumas informações.</Text>
             </Animatable.View>
 
             <Animatable.View animation="fadeInUp" style={styles.containerForm}>
@@ -111,19 +115,26 @@ export default function InfoUser() {
                     >
                         <Text style={choiceButtonTextStyle(gender, 'Feminino')}>Feminino</Text>
                     </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[choiceButtonStyle(gender, 'Outro'), { marginRight: 0 }]}
+                        onPress={() => setGender('Outro')}
+                    >
+                        <Text style={choiceButtonTextStyle(gender, 'Outro')}>Outro</Text>
+                    </TouchableOpacity>
                 </View>
 
                 {/* Paciente ou cliente */}
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
                     <TouchableOpacity
-                        style={choiceButtonStyle(choice, 'Psicólogo')}
+                        style={choice === 'Psicólogo' ? styles.choiceButtonRoleSelected : styles.choiceButtonRole}
                         onPress={() => setChoice('Psicólogo')}
                     >
                         <Text style={choiceButtonTextStyle(choice, 'Psicólogo')}>Psicólogo</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        style={choiceButtonStyle(choice, 'Paciente')}
+                        style={[choice === 'Paciente' ? styles.choiceButtonRoleSelected : styles.choiceButtonRole, { marginRight: 0 }]}
                         onPress={() => setChoice('Paciente')}
                     >
                         <Text style={choiceButtonTextStyle(choice, 'Paciente')}>Paciente</Text>
@@ -143,24 +154,23 @@ export default function InfoUser() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#38a69d',
+        backgroundColor: '#1c1c1c',
     },
     logo: {
-        width: 45,    
-        height: 45,
-        marginLeft: '85%',
-        marginBottom: '10%',
-        position: 'absolute'
-    },
-    containerHeader: {
-        marginTop: '14%',
+        width: 150,
+        height: 150,
+        borderRadius: 75,
+        marginBottom: 15,
+      },
+      containerHeader: {
+        marginTop: '10%',
         marginBottom: '8%',
-        paddingStart: '5%',
-    },
+        alignItems: 'center', 
+      },
     message: {
-        fontSize: 28,
+        fontSize: 20,
         fontWeight: 'bold',
-        color: '#FFF'
+        color: '#ea900f'
     },
     containerForm: {
         backgroundColor: '#FFF',
@@ -182,7 +192,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     button: {
-        backgroundColor: '#38a69d',
+        backgroundColor: '#1c1c1c',
         width: '100%',
         borderRadius: 4,
         paddingVertical: 8,
@@ -191,16 +201,18 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     choiceButton: {
-        flex: 0.48,
+        width: '29.33%',  
         padding: 10,
-        backgroundColor: '#E0E0E0', // Uma cor mais clara para o botão não selecionado
+        backgroundColor: '#E0E0E0',
         borderRadius: 5,
+        marginRight: 4,
     },
     choiceButtonSelected: {
-        flex: 0.48,
+        width: '29.33%',  
         padding: 10,
-        backgroundColor: '#38a69d', // Uma cor mais escura para o botão selecionado
+        backgroundColor: '#1c1c1c',
         borderRadius: 5,
+        marginRight: 4,
     },
     choiceButtonText: {
         textAlign: 'center',
@@ -209,6 +221,20 @@ const styles = StyleSheet.create({
     choiceButtonTextSelected: {
         textAlign: 'center',
         color: 'white',
+    },
+    choiceButtonRole: {
+        width: '49%', 
+        padding: 10,
+        backgroundColor: '#E0E0E0',
+        borderRadius: 5,
+        marginRight: 2, 
+    },
+    choiceButtonRoleSelected: {
+        width: '49%', 
+        padding: 10,
+        backgroundColor: '#1c1c1c',
+        borderRadius: 5,
+        marginRight: 2, 
     },
     buttonText:{
         color:'#FFF',
