@@ -36,16 +36,15 @@ Para iniciar o projeto PsicoSeek, siga os passos abaixo:
 
    ```bash
    git clone https://github.com/seu-usuario/psicoseek.git
-   ````
+   
 2. Instale as dependências:
-   ```bash
+  ```bash
 npm install
-```
 
 3. Inicie o Projeto usando:
    ```bash
          npx expo start
-   ```
+   
 
 4. Scanne o QR CODE com o Aplicativo Expo GO no celular, ou coloque o Link que irá aparecer no console
 
