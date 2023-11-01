@@ -37,21 +37,22 @@ Para iniciar o projeto PsicoSeek, siga os passos abaixo:
 ```bash
 git clone https://github.com/seu-usuario/psicoseek.git
 
+```
 2. Instale as dependências:
+    ```bash
     Npm Install
+    ```
 
 3. Inicie o projeto usando:
-Npx expo start
-
+```bash
+npx expo start
 ```
-   
-
 4. Scanne o QR CODE com o Aplicativo Expo GO no celular, ou coloque o Link que irá aparecer no console
 
 ## Contribuição
 Se você deseja contribuir para o desenvolvimento do PsicoSeek, sinta-se à vontade para abrir problemas (issues) e enviar solicitações de pull (pull requests) no repositório do GitHub. Estamos ansiosos para receber sua contribuição.
 
-Obrigado por escolher o PsicoSeek para encontrar psicólogos na sua cidade e cuidar da sua saúde mental. Se tiver alguma dúvida ou precisar de suporte, não hesite em entrar em contato conosco.
+A logo não foi feita por Italo Cubas.
 
 
 Licença
